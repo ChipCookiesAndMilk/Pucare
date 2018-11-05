@@ -3,6 +3,8 @@ package com.example.a01363207.pucare;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import com.example.a01363207.pucare.PlantPackage.PlantDP;
 import com.example.a01363207.pucare.UserPackage.UserDP;
 import com.example.a01363207.pucare.UserPlantPackage.UserPlantDP;
@@ -54,7 +56,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "FOREIGN KEY ("+UserPlantDP.COLUMN_ID_PLANT+") REFERENCES "+PlantDP.TABLE_NAME+"("+PlantDP.COLUMN_IDPLANT+"),"+
             "PRIMARY KEY ("+UserPlantDP.COLUMN_ID_USER+","+UserPlantDP.COLUMN_ID_PLANT+","+UserPlantDP.COLUMN_DATE_REGISTERED+"))";
 
-            // Shared column type == Plant Name
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -64,6 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_PLANT);
         db.execSQL(SQL_CREATE_USER);
         db.execSQL(SQL_CREATE_USER_PLANT);
+        Log.d("SUCCESS","onCreate: Tables were created with success");
     }
 
     @Override

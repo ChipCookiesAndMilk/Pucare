@@ -47,6 +47,7 @@ public class PlantDatabaseController {
 
         return cursor;
     }
+
 // Gets all the plants, and all their info
     public Cursor selectAllPlants(String selection, String[] selectionArgs){
 
@@ -80,5 +81,4 @@ public class PlantDatabaseController {
     public void close() {
         database.close();
     }
-
 }

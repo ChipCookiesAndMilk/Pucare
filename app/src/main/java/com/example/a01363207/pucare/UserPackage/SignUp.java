@@ -17,6 +17,7 @@ import com.example.a01363207.pucare.UserPackage.UserDatabaseController;
 public class SignUp extends AppCompatActivity {
     UserDatabaseController controller;
 
+    public static String EXTRA_INPUT_USER = "INPUT_USER";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +43,13 @@ public class SignUp extends AppCompatActivity {
         input.setEmail(email.getText().toString());
         input.setPassword(pass.getText().toString());
 
+        // Need validations but for now I assume I'll treat kindly this program
         long inserted = controller.insert(input);
         Log.d("DATABASE", "User_Insertion " + inserted);
         Toast.makeText(this,"You were successfully registered!", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(SignUp.this, PlantsView.class);
+        intent.putExtra(EXTRA_INPUT_USER, user.getText().toString());
         startActivity(intent);
     }
 }
