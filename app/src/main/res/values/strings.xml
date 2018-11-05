@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Pucare</string>
+    <string name="text">text</string>
+    <string name="welcome_to_pucare">Welcome to Pucare!</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="log_in">Log In</string>
+    <string name="title">Create your account</string>
+    <string name="email">email</string>
+    <string name="create">create account</string>
+    <string name="plant_name">Plant Name</string>
+    <string name="sign_up">sign up</string>
+
+    <string name="status">Description</string>
+    <string name="type">Type</string>
+    <string name="registered_date">Date Registered</string>
+    <string name="date_format">DD-MM-YYYY</string>
+    <string name="last_water">Last time watered</string>
+    <string name="next_water">When to Water</string>
+    <string name="last_water_format">HH-MM-SS</string>
+    <string name="next_water_format">HH-MM-SS</string>
+    <string name="health">Healthy</string>
+    <string name="health_format">Healthy</string>
+    <string name="edit">Edit</string>
+
+    <string name="add_plant_title">Add your plant!</string>
+    <string name="open_calendar">Open Calendar</string>
+    <string name="open_timer">Open Timer</string>
+    <string name="add_plant_btn">Add plant</string>
+
+    <string name="date">Day</string>
+    <string name="hour">Hour</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete Plant</string>
+</resources>
