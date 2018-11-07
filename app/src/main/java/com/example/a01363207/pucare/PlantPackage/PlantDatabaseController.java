@@ -22,8 +22,7 @@ public class PlantDatabaseController {
     // for testing purposes only
     public long insert(PlantDP plant) {
         ContentValues values = new ContentValues();
-        values.put(PlantDP.COLUMN_IDPLANT, plant.getIdPlant());
-        values.put(PlantDP.COLUMN_PLANTNAME, plant.getPlantName());
+        values.put(PlantDP.COLUMN_PLANT_NAME, plant.getPlantName());
         values.put(PlantDP.COLUMN_TYPE, plant.getPlantType());
         values.put(PlantDP.COLUMN_SUNLIGHT, plant.getSunlight());
         values.put(PlantDP.COLUMN_HEIGHT, plant.getHeight());
@@ -35,21 +34,33 @@ public class PlantDatabaseController {
     }
 
 // Gets all the kind of plants
-    public Cursor selectPlantsKind(String selection, String[] selectionArgs) {
+    public Cursor selectPlantsName() {
         SQLiteDatabase databaseRead = helper.getReadableDatabase();
 
-        String columns[] = {
-                PlantDP.COLUMN_PLANTNAME
-        };
+        String columns[] = { PlantDP.COLUMN_PLANT_NAME };
 
-        Cursor cursor = database.query(PlantDP.TABLE_NAME, columns, selection, selectionArgs,
+        Cursor cursor = database.query(PlantDP.TABLE_NAME, columns, null, null,
+                null, null, null);
+
+        return cursor;
+    }
+
+    // gets the image for a selected plant
+    public Cursor selectPlantsImage(String plantName) {
+        SQLiteDatabase databaseRead = helper.getReadableDatabase();
+
+        String columns[] = { PlantDP.COLUMN_IMAGE };
+        String selection = PlantDP.COLUMN_PLANT_NAME +" = ? ";
+        String[] selectionArgs = new String[]{plantName};
+
+        Cursor cursor = databaseRead.query(PlantDP.TABLE_NAME, columns, selection, selectionArgs,
                 null, null, null);
 
         return cursor;
     }
 
 // Gets all the plants, and all their info
-    public Cursor selectAllPlants(String selection, String[] selectionArgs){
+    public Cursor selectAllPlantsInfo(String selection, String[] selectionArgs){
 
         // for requirement: finally: Initialize DatabaseHelper
         SQLiteDatabase databaseRead = helper.getReadableDatabase();
@@ -63,8 +74,7 @@ public class PlantDatabaseController {
                 having, orderBy, null limit );
 */
         String columns[] = {
-                PlantDP.COLUMN_IDPLANT,
-                PlantDP.COLUMN_PLANTNAME,
+                PlantDP.COLUMN_PLANT_NAME,
                 PlantDP.COLUMN_TYPE,
                 PlantDP.COLUMN_SUNLIGHT,
                 PlantDP.COLUMN_HEIGHT,
@@ -74,11 +84,12 @@ public class PlantDatabaseController {
 
         Cursor cursor = databaseRead.query(PlantDP.TABLE_NAME, columns, selection, selectionArgs,
                 null, null, null);
-
         return cursor;
     }
 
     public void close() {
         database.close();
     }
+
+
 }

@@ -4,24 +4,21 @@ import android.provider.BaseColumns;
 
 public class PlantDP implements BaseColumns {
 
-    public static final String TABLE_NAME       = "Plant";
+    public static final String TABLE_NAME           = "Plant";
 
-    public static final String COLUMN_IDPLANT   = "idPlant";
-    public static final String COLUMN_PLANTNAME = "plantName";
-    public static final String COLUMN_TYPE      = "plantType";
-    public static final String COLUMN_SUNLIGHT  = "sunlight";
-    public static final String COLUMN_HEIGHT    = "height";
-    public static final String COLUMN_WATER     = "water";
-    public static final String COLUMN_IMAGE     = "image";
+    public static final String COLUMN_PLANT_NAME    = "plantName";
+    public static final String COLUMN_TYPE          = "plantType";
+    public static final String COLUMN_SUNLIGHT      = "sunlight";
+    public static final String COLUMN_HEIGHT        = "height";
+    public static final String COLUMN_WATER         = "water";
+    public static final String COLUMN_IMAGE         = "image";
 
-    private int idPlant;
     private String plantName, plantType, sunlight, height, water, image;
 
 /* CONSTRUCTORS */
     public PlantDP(){}
 
-    public PlantDP(int idPlant, String plantName, String plantType, String sunlight, String height, String water, String image) {
-        this.idPlant    = idPlant;
+    public PlantDP(String plantName, String plantType, String sunlight, String height, String water, String image) {
         this.plantName  = plantName;
         this.plantType  = plantType;
         this.sunlight   = sunlight;
@@ -31,9 +28,6 @@ public class PlantDP implements BaseColumns {
     }
 
 /* GETTERS */
-    public int
-    getIdPlant() { return idPlant; }
-
     public String
     getPlantName() { return plantName; }
 
@@ -55,9 +49,6 @@ public class PlantDP implements BaseColumns {
 
 /* SETTERS */
     public void
-    setIdPlant(int idPlant) { this.idPlant = idPlant; }
-
-    public void
     setPlantName(String plantName) { this.plantName = plantName; }
 
     public void
@@ -74,5 +65,4 @@ public class PlantDP implements BaseColumns {
 
     public void
     setImage(String image) { this.image = image; }
-
 }

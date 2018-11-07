@@ -22,7 +22,7 @@
         android:text="@string/sign_up"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="17sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/strUser"
+        android:id="@+id/email"
         android:layout_width="343dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
@@ -63,7 +63,7 @@
         android:layout_marginRight="16dp"
         android:backgroundTint="@color/white"
         android:ems="10"
-        android:hint="@string/username"
+        android:hint="@string/email"
         android:inputType="textPersonName"
         android:paddingBottom="20dp"
         android:textColor="@color/white"
@@ -93,7 +93,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/strUser" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
 
     <TextView
@@ -109,7 +109,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idPass" />
-
 
     <Button
         android:id="@+id/bLogIn"

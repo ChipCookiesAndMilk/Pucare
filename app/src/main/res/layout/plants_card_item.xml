@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:layout_width="120dp"
+    android:layout_height="200dp"
+    android:layout_margin="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/idPlantImage"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="#2d2d2d"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/idPlantName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/plant_name"
+            android:textColor="#2d2d2d"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/idNextWater"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/next_water"
+            android:textColor="#2d2d2d"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

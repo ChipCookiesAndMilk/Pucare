@@ -16,7 +16,7 @@ import com.example.a01363207.pucare.UserPackage.UserDatabaseController;
 public class MainActivity extends AppCompatActivity {
     // for the signUp & PlantsView
     public static String EXTRA_INPUT_USER = "INPUT_USER";
-    private String strUser = "";
+    private String email = "";
     // for the logIn
     UserDatabaseController controller;
 
@@ -39,14 +39,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public int valstrUser(String u, String p) {
+    public int valEmail(String u, String p) {
         int result = -2;
         Log.d("VALID_USER_METHOD", "Llegue___ USER: " + u + " PASS: " + p);
 
         // Ask DB look for user
         String[] selectionArgs = new String[]{u, p};
         // for requirement: Initialize DatabaseHelper, in this case calls the DBcontroller to do it
-        String selection = UserDP.COLUMN_USERNAME + " =? AND " + UserDP.COLUMN_PASSWORD + " = ?";
+        String selection = UserDP.COLUMN_EMAIL + " =? AND " + UserDP.COLUMN_PASSWORD + " = ?";
 
         Cursor cursor = controller.selectUser(selection, selectionArgs);
 
@@ -54,23 +54,21 @@ public class MainActivity extends AppCompatActivity {
 
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
-                strUser = cursor.getString(cursor.getColumnIndex(UserDP.COLUMN_IDUSER));
                 String name = cursor.getString(cursor.getColumnIndex(UserDP.COLUMN_USERNAME));
                 String email = cursor.getString(cursor.getColumnIndex(UserDP.COLUMN_EMAIL));
                 String pass = cursor.getString(cursor.getColumnIndex(UserDP.COLUMN_PASSWORD));
 
-                Log.d("DATABASE_INFO", "USER_INFO____ID: " + strUser + " User: " + name + " Email: " + email + " Pass: " + pass);
+                Log.d("DATABASE_INFO", "USER_INFO____ID: " + email + " User: " + name + " Email: " + email + " Pass: " + pass);
             }
             result = 1;
         }
-
         cursor.close();
         return result;
     }
     /* activity_main: logIn = onClick */
     public void logIn(View view) {
         String message = "";
-        EditText user = (EditText) findViewById(R.id.strUser);
+        EditText user = (EditText) findViewById(R.id.email);
         EditText pass = (EditText) findViewById(R.id.idPass);
 
         String u = user.getText().toString();
@@ -80,13 +78,13 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.idTextMessages);
 
         // user exists?
-        int result = valstrUser(u, p);
+        int result = valEmail(u, p);
 
         // if user exist && data is correct?
         if (result == 1) {
             // move to next activity
             Intent intent = new Intent(MainActivity.this, PlantsView.class);
-            intent.putExtra(EXTRA_INPUT_USER, strUser);
+            intent.putExtra(EXTRA_INPUT_USER, email);
 
             startActivity(intent);
             Log.d("RECEPTION", "\nFOUND: USUARIO Y CONTRASENA CORRECTOS");

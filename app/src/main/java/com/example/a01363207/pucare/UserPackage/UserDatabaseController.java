@@ -42,9 +42,8 @@ public class UserDatabaseController {
                 having, orderBy, null limit );
 */
         String columns[] = {
-                UserDP.COLUMN_IDUSER,
-                UserDP.COLUMN_USERNAME,
                 UserDP.COLUMN_EMAIL,
+                UserDP.COLUMN_USERNAME,
                 UserDP.COLUMN_PASSWORD
         };
 
@@ -67,10 +66,11 @@ public class UserDatabaseController {
 
     public long delete(UserDP user){
 
-        String where = UserDP.COLUMN_IDUSER + " = ?";
+        String where = UserDP.COLUMN_EMAIL + " = ?";
         String[] whereArgs= {
-                ""+user.getIdUser()
+                ""+user.getEmail()
         };
+
         long deleted = database.delete(UserDP.TABLE_NAME ,  where, whereArgs);
         return deleted;
     }

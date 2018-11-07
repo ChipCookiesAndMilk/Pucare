@@ -26,35 +26,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // CREATE TABLES
     // User
     private static final String SQL_CREATE_USER = "CREATE TABLE " + TABLE_USER + "(" +
-            UserDP.COLUMN_IDUSER    +  " INTEGER PRIMARY KEY, " +
+            UserDP.COLUMN_EMAIL     +  " TEXT PRIMARY KEY," +
             UserDP.COLUMN_USERNAME  +  " TEXT," +
-            UserDP.COLUMN_EMAIL     +  " TEXT," +
             UserDP.COLUMN_PASSWORD  +  " TEXT)";
 
     // Plant
     private static final String SQL_CREATE_PLANT = "CREATE TABLE " + TABLE_PLANT  + "(" +
-            PlantDP.COLUMN_IDPLANT  +  " INTEGER PRIMARY KEY, " +
-            PlantDP.COLUMN_PLANTNAME+  " TEXT," +
-            PlantDP.COLUMN_TYPE     +  " TEXT," +
-            PlantDP.COLUMN_SUNLIGHT +  " TEXT," +
-            PlantDP.COLUMN_HEIGHT   +  " TEXT," +
-            PlantDP.COLUMN_WATER    +  " TEXT," +
-            PlantDP.COLUMN_IMAGE    +  " TEXT)" ;
+            PlantDP.COLUMN_PLANT_NAME   +  " TEXT PRIMARY KEY," +
+            PlantDP.COLUMN_TYPE         +  " TEXT, " +
+            PlantDP.COLUMN_SUNLIGHT     +  " TEXT, " +
+            PlantDP.COLUMN_HEIGHT       +  " TEXT, " +
+            PlantDP.COLUMN_WATER        +  " TEXT, " +
+            PlantDP.COLUMN_IMAGE        +  " TEXT)" ;
 
     // UserPlant
     private static final String SQL_CREATE_USER_PLANT = "CREATE TABLE " + TABLE_USER_PLANT + "(" +
-            UserPlantDP.COLUMN_NICKNAME         +  " TEXT," +
-            UserPlantDP.COLUMN_HEALTH           +  " TEXT," +
-            UserPlantDP.COLUMN_LAST_WATER       +  " TEXT," +
-            UserPlantDP.COLUMN_NEXT_WATER       +  " TEXT," +
+            UserPlantDP.COLUMN_NICKNAME         +  " TEXT, " +
+            UserPlantDP.COLUMN_HEALTH           +  " TEXT, " +
+            UserPlantDP.COLUMN_LAST_WATER       +  " TEXT, " +
+            UserPlantDP.COLUMN_NEXT_WATER       +  " TEXT, " +
 
-            UserPlantDP.COLUMN_ID_USER          + " INTEGER," +
-            UserPlantDP.COLUMN_ID_PLANT         + " INTEGER," +
-            UserPlantDP.COLUMN_DATE_REGISTERED  +  " TEXT," +
+            UserPlantDP.COLUMN_USER_EMAIL       +  " TEXT, " +
+            UserPlantDP.COLUMN_PLANT_NAME       +  " TEXT, " +
+            UserPlantDP.COLUMN_DATE_REGISTERED  +  " TEXT, " +
+            UserPlantDP.COLUMN_IMAGE            +  " TEXT, " +
 
-            "FOREIGN KEY ("+UserPlantDP.COLUMN_ID_USER+") REFERENCES "+UserDP.TABLE_NAME+"("+UserDP.COLUMN_IDUSER+")," +
-            "FOREIGN KEY ("+UserPlantDP.COLUMN_ID_PLANT+") REFERENCES "+PlantDP.TABLE_NAME+"("+PlantDP.COLUMN_IDPLANT+"),"+
-            "PRIMARY KEY ("+UserPlantDP.COLUMN_ID_USER+","+UserPlantDP.COLUMN_ID_PLANT+","+UserPlantDP.COLUMN_DATE_REGISTERED+"))";
+            "FOREIGN KEY ("+UserPlantDP.COLUMN_USER_EMAIL+") REFERENCES "+UserDP.TABLE_NAME+"("+UserDP.COLUMN_EMAIL+")," +
+            "FOREIGN KEY ("+UserPlantDP.COLUMN_PLANT_NAME+") REFERENCES "+PlantDP.TABLE_NAME+"("+PlantDP.COLUMN_PLANT_NAME+"),"+
+            "PRIMARY KEY ("+UserPlantDP.COLUMN_USER_EMAIL+","+UserPlantDP.COLUMN_PLANT_NAME+","+UserPlantDP.COLUMN_DATE_REGISTERED+"))";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

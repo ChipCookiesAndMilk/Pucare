@@ -9,36 +9,38 @@ public class UserPlantDP implements BaseColumns {
     public static final String COLUMN_HEALTH            = "health";
     public static final String COLUMN_LAST_WATER        = "lastWater";
     public static final String COLUMN_NEXT_WATER        = "nextWater";
+    public static final String COLUMN_IMAGE             = "image";
 
-    public static final String COLUMN_ID_USER           = "idUser";
-    public static final String COLUMN_ID_PLANT          = "idPlant";
+    public static final String COLUMN_USER_EMAIL        = "email";
+    public static final String COLUMN_PLANT_NAME        = "plantName";
     public static final String COLUMN_DATE_REGISTERED   = "dateRegistered";
 
-    private int idUser, idPlant;
-    private String nickname, health, lastWater, nextWater, dateRegistered;
+    private String userEmail, plantName;
+    private String nickname, health, lastWater, nextWater, dateRegistered, image;
 
 /* CONSTRUCTORS */
     public UserPlantDP(){}
 
-    public UserPlantDP(String nickname, String health, String lastWater, String nextWater, int idUser, int idPlant, String dateRegistered) {
+    public UserPlantDP(String nickname, String health, String lastWater, String nextWater, String idUser, String idPlant, String dateRegistered, String image) {
         this.nickname       = nickname;
         this.health         = health;
         this.lastWater      = lastWater;
         this.nextWater      = nextWater;
+        this.image          = image;
 
-        this.idUser         = idUser;
-        this.idPlant        = idPlant;
+        this.userEmail      = idUser;
+        this.plantName      = idPlant;
         this.dateRegistered = dateRegistered;
     }
 
 /* GETTERS  */
 
-    public int getIdUser() {
-        return idUser;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public int getIdPlant() {
-        return idPlant;
+    public String getPlantName() {
+        return plantName;
     }
 
     public String getNickname() {
@@ -61,14 +63,16 @@ public class UserPlantDP implements BaseColumns {
         return dateRegistered;
     }
 
+    public String getImage() { return image; }
+
 /* SETTERS */
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUserEmail(String idUser) {
+        this.userEmail = idUser;
     }
 
-    public void setIdPlant(int idPlant) {
-        this.idPlant = idPlant;
+    public void setPlantName(String idPlant) {
+        this.plantName = idPlant;
     }
 
     public void setNickname(String nickname) {
@@ -89,5 +93,9 @@ public class UserPlantDP implements BaseColumns {
 
     public void setDateRegistered(String dateRegistered) {
         this.dateRegistered = dateRegistered;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
