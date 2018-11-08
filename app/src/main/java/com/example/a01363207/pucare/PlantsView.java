@@ -1,7 +1,10 @@
 package com.example.a01363207.pucare;
 
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,6 +28,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -43,7 +49,7 @@ display the user content
 */
 public class PlantsView extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "PlantsView";
-    private static final String URL = "http://192.168.100.7:3000/plants";
+    private static final String URL_PLANTS = "http://192.168.100.7:3000/plants";
     private static final String VOLLEY_ERROR = "VOLLEY_ERROR";
     private ArrayList<String> plantsInDB;
     private String email = "";
@@ -138,10 +144,10 @@ public class PlantsView extends AppCompatActivity implements AdapterView.OnItemS
         Log.d("loadApiData", "\tloadApiData");
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        // requestTypeMethod, URL, responseListener(file), errorListener
+        // requestTypeMethod, URL_PLANTS, responseListener(file), errorListener
         Log.d("arrayRequest", "\tloadApiData: Request");
         JsonArrayRequest arrayRequest = new JsonArrayRequest(Request.Method.GET,
-                URL, null, new Response.Listener<JSONArray>() {
+                URL_PLANTS, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -234,20 +240,43 @@ public class PlantsView extends AppCompatActivity implements AdapterView.OnItemS
         // get image url
 
         String link = getPlantsImage(spValue);
+        ImageView icon = (ImageView)findViewById(R.id.imageView);
 
         if(link.isEmpty()){
             Log.d(TAG,"onItemSelected. an image for "+spValue+" was not found");
-        }
-        else {
-            ImageView icon = (ImageView)findViewById(R.id.imageView);
-            //icon.setImageURI("google.com");
-            Log.d(TAG,"onItemSelected. This is the link for the image to go to: "+link);
-        }
-
+        }   // execute param is the url of the image
+        else new GetImageFromURL(icon).execute(link);
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback, or do nothing.
         // maybe that what the user wants
+    }
+
+
+    // Subclass, reloads the image when the user changes the spinner option
+    private class GetImageFromURL extends AsyncTask<String, Void, Bitmap> {
+        ImageView icon;
+
+        public GetImageFromURL(ImageView image) {
+            this.icon = image;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap bmp = null;
+            try {
+                InputStream is = new java.net.URL(urldisplay).openStream();
+                bmp = BitmapFactory.decodeStream(is);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return bmp;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            icon.setImageBitmap(result);
+        }
     }
 }
