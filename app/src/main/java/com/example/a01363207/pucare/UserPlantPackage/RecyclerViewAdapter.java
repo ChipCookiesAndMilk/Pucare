@@ -56,9 +56,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     */
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
-        // missing image here
-        //myViewHolder.ivImage.
-
         plantsEdit.new GetImageFromURL(myViewHolder.ivImage).execute(plantsList.get(i).getImage());
         myViewHolder.tvName.setText(plantsList.get(i).getNickname());
         myViewHolder.tvWater.setText(plantsList.get(i).getNextWater());

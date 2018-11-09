@@ -45,7 +45,7 @@ public class PlantDatabaseController {
         return cursor;
     }
 
-    // Gets the image link for a selected plant
+    // Gets the image link for an specific plant
     public Cursor selectPlantsImage(String plantName) {
         SQLiteDatabase databaseRead = helper.getReadableDatabase();
 

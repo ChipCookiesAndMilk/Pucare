@@ -21,16 +21,16 @@ public class UserPlantDP implements BaseColumns {
 /* CONSTRUCTORS */
     public UserPlantDP(){}
 
-    public UserPlantDP(String nickname, String health, String lastWater, String nextWater, String idUser, String idPlant, String dateRegistered, String image) {
+    public UserPlantDP(String nickname, String health, String lastWater, String nextWater, String image, String idUser, String idPlant, String dateRegistered) {
         this.nickname       = nickname;
         this.health         = health;
-        this.dateRegistered = dateRegistered;
         this.lastWater      = lastWater;
         this.nextWater      = nextWater;
         this.image          = image;
 
         this.userEmail      = idUser;
         this.plantName      = idPlant;
+        this.dateRegistered = dateRegistered;
     }
 
 /* GETTERS  */

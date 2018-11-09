@@ -33,6 +33,8 @@ public class UserPlantDatabaseController {
         values.put(UserPlantDP.COLUMN_PLANT_NAME, input.getPlantName());
         values.put(UserPlantDP.COLUMN_DATE_REGISTERED, input.getDateRegistered());
 
+        Log.d(TAG, "insert. <<<<---- DATA plantName: " + input.getNickname()+" Health: "+input.getHealth()+" Last: "+input.getLastWater()+" next: "+input.getNextWater()+" image: "+input.getImage()+" email: "+input.getUserEmail()+" plantType: "+input.getPlantName()+" date: "+input.getDateRegistered());
+
         long inserted = database.insert(UserPlantDP.TABLE_NAME, null, values);
         Log.d("UserPlantDBController", "inserted: " + inserted);
         return inserted;
@@ -75,6 +77,7 @@ public class UserPlantDatabaseController {
 
     // get information about a plant
     public Cursor selectContent(String selection, String[] selectionArgs) {
+
         SQLiteDatabase databaseRead = helper.getReadableDatabase();
 
         String columns[] = {
@@ -95,9 +98,9 @@ public class UserPlantDatabaseController {
                 selectionArgs,
                 null,
                 null,
-                UserPlantDP.COLUMN_DATE_REGISTERED
+                null
         );
-        //Log.d("UserPlantDBController","end_selectContent");
+        Log.d("UserPlantDBController","end_selectContent");
         return cursor;
     }
 
@@ -105,8 +108,5 @@ public class UserPlantDatabaseController {
     public void close() {
         database.close();
     }
-
-
-
 
 }

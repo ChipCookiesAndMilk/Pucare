@@ -65,7 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_PLANT);
         db.execSQL(SQL_CREATE_USER);
         db.execSQL(SQL_CREATE_USER_PLANT);
-        Log.d("SUCCESS","onCreate: Tables were created with success");
+        Log.d("DatabaseHelper","SUCCESS onCreate: Tables were created with success");
     }
 
     @Override

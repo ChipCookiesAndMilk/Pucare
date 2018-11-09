@@ -26,6 +26,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.a01363207.pucare.PlantPackage.PlantDP;
 import com.example.a01363207.pucare.PlantPackage.PlantDatabaseController;
+import com.example.a01363207.pucare.UserPlantPackage.OperationsHandler;
 import com.example.a01363207.pucare.UserPlantPackage.RecyclerViewAdapter;
 import com.example.a01363207.pucare.UserPlantPackage.UserPlantDP;
 import com.example.a01363207.pucare.UserPlantPackage.UserPlantDatabaseController;
@@ -92,75 +93,63 @@ public class PlantsView extends AppCompatActivity implements AdapterView.OnItemS
 
 /** plants_new **/
     public void addUserPlant(View view) {
-
         // get user info
-        EditText n = (EditText)findViewById(R.id.idNewName);
-        Spinner s = (Spinner)findViewById(R.id.idSpinner);
+        EditText n  = (EditText)findViewById(R.id.idNewName);
+        Spinner s   = (Spinner)findViewById(R.id.idSpinner);
 
         String plantName = n.getText().toString();
         String plantType = s.getSelectedItem().toString();
 
         Log.d(TAG,"addUserPlant. plantName: "+plantName+"    ___plantType: "+plantType);
 
-        // add plant to the user
-        UserPlantDP input = new UserPlantDP();
-// <<<<<<< DELETE FROM HERE >>>>>
-        input.setNickname("Watson");
-        input.setHealth("Healthy");
-        input.setLastWater("2018-11-07 20:28:22");
-        input.setNextWater("2018-11-14 20:28:22");
-        input.setImage("https://image.ibb.co/gsGOsf/claret.jpg");
-        input.setUserEmail(email);
-        input.setPlantName(plantType);
-        input.setDateRegistered("2018-11-07 20:28:22");
+        if(plantName.isEmpty()){
+            Toast.makeText(this,"Your plant must have a name",Toast.LENGTH_SHORT).show();
+        }else{
+            // add plant to the user
+            OperationsHandler oh = new OperationsHandler();
+            String lW = oh.getDate();
+            Log.d(TAG,"getDate: "+lW);
+            String wW = getWater(plantType);
+            String nW = oh.nextWater(lW, wW);
+            String img = getPlantsImage(plantType);
 
-        long inserted = userPlantController.insert(input);
-        Log.d(TAG, "addUserPlant. inserted : " + inserted);
-/*
+            // because this is a new plant the countdown starts from now, from last water
+            UserPlantDP input = new UserPlantDP(plantName,"Healthy",lW ,nW, img, email, plantType, lW);
 
-        input.setNickname("Edu");
-        input.setHealth("Healthy");
-        input.setLastWater("2018-11-07 21:12:10");
-        input.setNextWater("2018-11-21 21:12:10");
-        input.setImage("https://image.ibb.co/gsGOsf/cherry.jpg");
-        input.setUserEmail(email);
-        input.setPlantName("Cherry");
-        input.setDateRegistered("2018-11-07 21:12:10");
+            long inserted = userPlantController.insert(input);
+            Log.d(TAG, "addUserPlant. inserted " + inserted);
+            Log.d(TAG, "addUserPlant. DATA--->>> plantName: " + plantName+" Health: Healthy Last: "+lW+" next: "+nW+" image: "+img+" email: "+email+" plantType: "+plantType+" date: "+lW);
 
-        inserted = userPlantController.insert(input);
-        Log.d(TAG, "addUserPlant. inserted_2: " + inserted);
-*/
-// <<<<<<< DELETE TO HERE >>>>>
-
-        /*
-        OperationsHandler oh = new OperationsHandler();
-
-        input.setNickname(plantName);
-        input.setHealth("Healthy");
-        String lW = oh.getDate();
-        input.setLastWater(lW);
-
-        // because this is a new plant the countdown starts from now, from last water
-        String wW = oh.getWater(plantType);
-        String nW = oh.nextWater(lW, wW);
-
-        input.setNextWater(nW);
-        String img = oh.getImage(plantType);
-        input.setImage(img);
-
-        input.setUserEmail(email);
-        input.setPlantName(plantType);
-        input.setDateRegistered(lW);
-
-        long inserted = userPlantController.insert(input);
-        Log.d(TAG, "addUserPlant. inserted " + inserted);
-
-        Toast.makeText(this,"Now, let's take a good care of "+plantName,Toast.LENGTH_LONG).show();
-
+            Toast.makeText(this,"Now, let's take a good care of "+plantName,Toast.LENGTH_LONG).show();
+        }
         // load catalogue
-        */
+
         Log.d(TAG, "<---- addUserPlant. inserted ");
-        setContentView(R.layout.plants_view);
+        //setContentView(R.layout.plants_view);
+        //setContentView(R.layout.plants_view);
+        //getUserPlants();
+    }
+
+    // request when to water a plant to the DB
+    public String getWater(String plantName) {
+        String water = "";
+
+        Log.d(TAG, "IN getWater method ");
+
+        Cursor cursor = plantController.selectPlantsWater(plantName);
+        try {
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    water = cursor.getString(cursor.getColumnIndex(PlantDP.COLUMN_WATER));
+                    Log.d(TAG, "getWater; water: " + water);
+                }
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "Exception. getWater; exception: " + e.getMessage());
+        }
+
+        cursor.close();
+        return water;
     }
 
 /** plants_view: **/
@@ -262,12 +251,14 @@ public class PlantsView extends AppCompatActivity implements AdapterView.OnItemS
     private void getUserPlants(){
 
         List<UserPlantDP> list = new ArrayList<UserPlantDP>();
-        String selection = UserPlantDP.COLUMN_USER_EMAIL + " = ?";
+        String selection = UserPlantDP.COLUMN_USER_EMAIL + " = ? ";
         String[] selectionArgs = { email };
 
-        //int curSize = 0;
+        Log.d(TAG,"getUserPlants. USer email: "+email);
+        Log.d(TAG,"getUserPlants. selection: "+selection);
 
         Cursor cursor = userPlantController.selectContent(selection,selectionArgs);
+        int curSize = 0;
 
         while (cursor.moveToNext()) {
             String name     = cursor.getString(cursor.getColumnIndex(UserPlantDP.COLUMN_NICKNAME));
@@ -290,11 +281,11 @@ public class PlantsView extends AppCompatActivity implements AdapterView.OnItemS
             input.setDateRegistered(date);
 
             list.add(input);
-            //curSize++;
+            curSize++;
 
-            /*Log.d(TAG, "\n## >>>>>> addUserPlant. List size: "+list.size()+" __Card info. name: " + name + " health: " + health+ " last: "+last+" water: "
+            Log.d(TAG, "\n## >>>>>> addUserPlant. curSize: "+curSize+"List size: "+list.size()+" __Card info. name: " + name + " health: " + health+ " last: "+last+" water: "
                     +water+" image: "+image+ " email: "+user+" plant: "+plant+" date: "+date);
-            */
+
         }
         cursor.close();
         //Log.d(TAG,"getUserPlants. User email_Origin: "+email);
@@ -383,7 +374,6 @@ public class PlantsView extends AppCompatActivity implements AdapterView.OnItemS
         // Another interface callback, or do nothing.
         // maybe that what the user wants
     }
-
 
     // Subclass, reloads the image when the user changes the spinner option
     private class GetImageFromURL extends AsyncTask<String, Void, Bitmap> {

@@ -162,10 +162,8 @@ public class PlantsEdit extends AppCompatActivity implements AdapterView.OnItemS
         cursor.close();
 
         prepareNextLayout(input);
-
-        Log.d(TAG, "addUserPlant. New plants view");
-
-        Log.d(TAG, "addUserPlant. parameters sent");
+            //Log.d(TAG, "addUserPlant. New plants view");
+            //Log.d(TAG, "addUserPlant. parameters sent");
     }
 
     // load the information from plant and display it
