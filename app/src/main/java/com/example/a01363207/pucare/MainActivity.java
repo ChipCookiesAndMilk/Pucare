@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a01363207.pucare.UserPackage.SignUp;
 import com.example.a01363207.pucare.UserPackage.UserDP;
@@ -16,7 +17,6 @@ import com.example.a01363207.pucare.UserPackage.UserDatabaseController;
 public class MainActivity extends AppCompatActivity {
     // for the signUp & PlantsView
     public static String EXTRA_INPUT_USER = "INPUT_USER";
-    private String email = "";
     // for the logIn
     UserDatabaseController controller;
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, SignUp.class);
         startActivity(intent);
     }
-
+    // validation existence of user
     public int valEmail(String u, String p) {
         int result = -2;
         Log.d("VALID_USER_METHOD", "Llegue___ USER: " + u + " PASS: " + p);
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
         return result;
     }
+
     /* activity_main: logIn = onClick */
     public void logIn(View view) {
         String message = "";
@@ -74,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
         String u = user.getText().toString();
         String p = pass.getText().toString();
 
-        Log.d("User", "User: " + u + " Pass: " + p);
-        TextView textView = (TextView) findViewById(R.id.idTextMessages);
+        Log.d("MainActivity", "User: " + u + " Pass: " + p);
 
         // user exists?
         int result = valEmail(u, p);
@@ -84,17 +84,18 @@ public class MainActivity extends AppCompatActivity {
         if (result == 1) {
             // move to next activity
             Intent intent = new Intent(MainActivity.this, PlantsView.class);
-            intent.putExtra(EXTRA_INPUT_USER, email);
+            intent.putExtra(EXTRA_INPUT_USER, u);
 
             startActivity(intent);
-            Log.d("RECEPTION", "\nFOUND: USUARIO Y CONTRASENA CORRECTOS");
-            message = "USUARIO Y CONTRASENA CORRECTOS";
+            Log.d("MainActivity", "\nFOUND: USUARIO Y CONTRASENA CORRECTOS");
+            message = "WELCOME BACK";
 
         } else {
             // throw error, data do not match or user does not exists
             Log.d("RECEPTION", "\nEXCEPTION: DATA DO NOT MATCH");
-            message = "DATA DO NOT MATCH";
+            message = "TRY AGAIN";
         }
-        textView.setText(message);
+        //textView.setText(message);
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserPlantPackage.PlantsEdit">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/idThumbnail"
+            android:layout_width="225dp"
+            android:layout_height="225dp"
+            android:layout_marginBottom="32dp"
+            android:background="#2d2d2d"
+            android:contentDescription="@string/plant_name"
+            android:scaleType="centerCrop" />
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="145dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_margin="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/plant_name"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/idNickName"
+                    android:layout_width="235dp"
+                    android:layout_marginLeft="32dp"
+                    android:textSize="20dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/type"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/idSpinner"
+                    android:layout_width="125dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="20sp">
+                </Spinner>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:id="@+id/bSave"
+            android:layout_width="386dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32sp"
+            android:layout_marginBottom="16sp"
+            android:text="@string/save"
+            android:onClick="save"/>
+
+        <Button
+            android:id="@+id/bDelete"
+            android:layout_width="385dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16sp"
+            android:text="@string/delete"
+            android:onClick="delete"/>
+    </LinearLayout>
+</LinearLayout>

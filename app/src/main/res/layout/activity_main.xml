@@ -14,9 +14,9 @@
         android:id="@+id/bSignUp"
         android:layout_width="wrap_content"
         android:layout_height="39dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
         android:background="#0000"
         android:onClick="signUp"
         android:text="@string/sign_up"
@@ -30,12 +30,12 @@
         android:id="@+id/logo"
         android:layout_width="103dp"
         android:layout_height="102dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/leaf"/>
+        app:srcCompat="@drawable/leaf" />
 
     <TextView
         android:id="@+id/idTitle"
@@ -43,12 +43,12 @@
         android:layout_height="42dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="172dp"
         android:text="@string/welcome_to_pucare"
         android:textColor="@color/white"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.142"
+        app:layout_constraintHorizontal_bias="0.289"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,25 +96,12 @@
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
 
-    <TextView
-        android:id="@+id/idTextMessages"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="339dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginRight="19dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idPass" />
-
     <Button
         android:id="@+id/bLogIn"
         android:layout_width="341dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
@@ -127,6 +114,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idTextMessages" />
+        app:layout_constraintTop_toBottomOf="@+id/idPass" />
 
 </android.support.constraint.ConstraintLayout>

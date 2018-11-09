@@ -21,5 +21,6 @@
         </activity>
         <activity android:name=".UserPackage.SignUp"/>
         <activity android:name=".PlantsView"/>
+        <activity android:name=".UserPlantPackage.PlantsEdit"/>
     </application>
 </manifest>

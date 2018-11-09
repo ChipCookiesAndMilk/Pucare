@@ -24,17 +24,16 @@ public class UserPlantDP implements BaseColumns {
     public UserPlantDP(String nickname, String health, String lastWater, String nextWater, String idUser, String idPlant, String dateRegistered, String image) {
         this.nickname       = nickname;
         this.health         = health;
+        this.dateRegistered = dateRegistered;
         this.lastWater      = lastWater;
         this.nextWater      = nextWater;
         this.image          = image;
 
         this.userEmail      = idUser;
         this.plantName      = idPlant;
-        this.dateRegistered = dateRegistered;
     }
 
 /* GETTERS  */
-
     public String getUserEmail() {
         return userEmail;
     }
@@ -66,7 +65,6 @@ public class UserPlantDP implements BaseColumns {
     public String getImage() { return image; }
 
 /* SETTERS */
-
     public void setUserEmail(String idUser) {
         this.userEmail = idUser;
     }

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 import com.example.a01363207.pucare.DatabaseHelper;
 
 public class UserDatabaseController {
@@ -11,13 +12,13 @@ public class UserDatabaseController {
     SQLiteDatabase database;
 
     // Constructor
-    public UserDatabaseController(Context context){
+    public UserDatabaseController(Context context) {
         helper = new DatabaseHelper(context);
         database = helper.getWritableDatabase();
     }
 
-    public long insert (UserDP user)
-    {
+    // Create an user
+    public long insert(UserDP user) {
         ContentValues values = new ContentValues();
         values.put(UserDP.COLUMN_USERNAME, user.getUserName());
         values.put(UserDP.COLUMN_EMAIL, user.getEmail());
@@ -28,28 +29,24 @@ public class UserDatabaseController {
         return inserted;
     }
 
-    public Cursor selectUser(String selection, String[] selectionArgs)
-    {
+    // Get info from user
+    public Cursor selectUser(String selection, String[] selectionArgs) {
         // for requirement: finally: Initialize DatabaseHelper
         SQLiteDatabase database = helper.getReadableDatabase();
+        /*
+            CURSOR STRUCTURE
+            Cursor cursor = sqLiteDatabase.query(
+                tableName, tableColumns, whereClause, whereArgs, groupBy, having, orderBy);
 
-/*
-        CURSOR STRUCTURE
-        Cursor cursor = sqLiteDatabase.query(
-            tableName, tableColumns, whereClause, whereArgs, groupBy, having, orderBy);
-
-        return query(false, table, columns, selection, selectionArgs, groupBy,
-                having, orderBy, null limit );
-*/
+            return query(false, table, columns, selection, selectionArgs, groupBy,
+                    having, orderBy, null limit );
+        */
         String columns[] = {
                 UserDP.COLUMN_EMAIL,
                 UserDP.COLUMN_USERNAME,
                 UserDP.COLUMN_PASSWORD
         };
-
-        database.query(UserDP.TABLE_NAME, columns, selection, selectionArgs, null, null, null);
-        String order = UserDP.COLUMN_USERNAME +" DESC";
-
+        String order = UserDP.COLUMN_USERNAME + " DESC";
 
         Cursor cursor = database.query(
                 UserDP.TABLE_NAME,
@@ -60,40 +57,19 @@ public class UserDatabaseController {
                 null,
                 order
         );
-
         return cursor;
     }
 
-    public long delete(UserDP user){
-
+    // delete an user
+    public long delete(UserDP user) {
         String where = UserDP.COLUMN_EMAIL + " = ?";
-        String[] whereArgs= {
-                ""+user.getEmail()
-        };
+        String[] whereArgs = { user.getEmail() };
 
-        long deleted = database.delete(UserDP.TABLE_NAME ,  where, whereArgs);
+        long deleted = database.delete(UserDP.TABLE_NAME, where, whereArgs);
         return deleted;
     }
 
-    /*
-    // Update user info
-        public long update(UserDP user){
-
-            ContentValues values = new ContentValues();
-
-            values.put(UserDP.COLUMN_USERNAME, user.getUser());
-            values.put(UserDP.COLUMN_EMAIL, user.getEmail());
-            values.put(UserDP.COLUMN_PASSWORD, user.getPassword());
-
-            String where = UserDP.COLUMN_ID + " = ?";
-            String[] whereArgs= {
-                    ""+user.getId()
-            };
-
-            long updated = database.update(UserDP.TABLE_NAME, values, where, whereArgs);
-            return updated;
-        }
-    */
+    // close database
     public void close() {
         database.close();
     }

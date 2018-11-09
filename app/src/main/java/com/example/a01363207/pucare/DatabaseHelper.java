@@ -45,15 +45,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             UserPlantDP.COLUMN_HEALTH           +  " TEXT, " +
             UserPlantDP.COLUMN_LAST_WATER       +  " TEXT, " +
             UserPlantDP.COLUMN_NEXT_WATER       +  " TEXT, " +
+            UserPlantDP.COLUMN_IMAGE            +  " TEXT, " +
 
             UserPlantDP.COLUMN_USER_EMAIL       +  " TEXT, " +
             UserPlantDP.COLUMN_PLANT_NAME       +  " TEXT, " +
             UserPlantDP.COLUMN_DATE_REGISTERED  +  " TEXT, " +
-            UserPlantDP.COLUMN_IMAGE            +  " TEXT, " +
+
 
             "FOREIGN KEY ("+UserPlantDP.COLUMN_USER_EMAIL+") REFERENCES "+UserDP.TABLE_NAME+"("+UserDP.COLUMN_EMAIL+")," +
             "FOREIGN KEY ("+UserPlantDP.COLUMN_PLANT_NAME+") REFERENCES "+PlantDP.TABLE_NAME+"("+PlantDP.COLUMN_PLANT_NAME+"),"+
-            "PRIMARY KEY ("+UserPlantDP.COLUMN_USER_EMAIL+","+UserPlantDP.COLUMN_PLANT_NAME+","+UserPlantDP.COLUMN_DATE_REGISTERED+"))";
+            "PRIMARY KEY ("+UserPlantDP.COLUMN_USER_EMAIL+","+UserPlantDP.COLUMN_DATE_REGISTERED+"))";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/purple"
     tools:context=".PlantsView">
 
     <Button
@@ -13,28 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="8dp"
-        android:background="@drawable/rectangle"
         android:text="@string/add_plant_btn"
         android:textSize="18sp"
-        android:textColor="@color/white"
+        android:textColor="@color/purple"
         android:textAllCaps="false"
         android:onClick="addPlantUser"/>
 
-    <GridLayout
-        android:id="@+id/plants_view_grid"
-        android:columnCount="2"
-        android:alignmentMode="alignMargins"
-        android:layout_weight="8"
-        android:padding="16dp"
-        android:layout_width="match_parent"
+    <!--         android:background="@drawable/rectangle" -->
+    <LinearLayout
+        android:layout_marginLeft="8dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
-    </GridLayout>
 
-    <!--
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/idRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
-    -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/idRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="570dp"
+            android:layout_gravity="center">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
 </LinearLayout>

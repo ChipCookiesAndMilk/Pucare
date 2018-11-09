@@ -8,11 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.a01363207.pucare.MainActivity;
 import com.example.a01363207.pucare.PlantsView;
 import com.example.a01363207.pucare.R;
-import com.example.a01363207.pucare.UserPackage.UserDP;
-import com.example.a01363207.pucare.UserPackage.UserDatabaseController;
 
 public class SignUp extends AppCompatActivity {
     UserDatabaseController controller;
@@ -45,7 +42,7 @@ public class SignUp extends AppCompatActivity {
 
         // Need validations but for now I assume I'll treat kindly this program
         long inserted = controller.insert(input);
-        Log.d("DATABASE", "User_Insertion " + inserted);
+        Log.d("SignUp", "User_Insertion " + inserted);
         Toast.makeText(this,"You were successfully registered!", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(SignUp.this, PlantsView.class);
