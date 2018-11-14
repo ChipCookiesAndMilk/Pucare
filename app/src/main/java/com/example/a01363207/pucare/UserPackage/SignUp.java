@@ -33,11 +33,9 @@ public class SignUp extends AppCompatActivity {
         UserDP input = new UserDP();
 
         EditText user   = (EditText) findViewById(R.id.idUser);
-        EditText email  = (EditText) findViewById(R.id.idEmail);
         EditText pass   = (EditText) findViewById(R.id.idPass);
 
         input.setUserName(user.getText().toString());
-        input.setEmail(email.getText().toString());
         input.setPassword(pass.getText().toString());
 
         // Need validations but for now I assume I'll treat kindly this program

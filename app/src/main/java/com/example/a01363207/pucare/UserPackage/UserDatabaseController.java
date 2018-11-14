@@ -21,7 +21,6 @@ public class UserDatabaseController {
     public long insert(UserDP user) {
         ContentValues values = new ContentValues();
         values.put(UserDP.COLUMN_USERNAME, user.getUserName());
-        values.put(UserDP.COLUMN_EMAIL, user.getEmail());
         values.put(UserDP.COLUMN_PASSWORD, user.getPassword());
 
         long inserted = database.insert(UserDP.TABLE_NAME, null, values);
@@ -42,7 +41,6 @@ public class UserDatabaseController {
                     having, orderBy, null limit );
         */
         String columns[] = {
-                UserDP.COLUMN_EMAIL,
                 UserDP.COLUMN_USERNAME,
                 UserDP.COLUMN_PASSWORD
         };
@@ -62,8 +60,8 @@ public class UserDatabaseController {
 
     // delete an user
     public long delete(UserDP user) {
-        String where = UserDP.COLUMN_EMAIL + " = ?";
-        String[] whereArgs = { user.getEmail() };
+        String where = UserDP.COLUMN_USERNAME + " = ?";
+        String[] whereArgs = { user.getUserName() };
 
         long deleted = database.delete(UserDP.TABLE_NAME, where, whereArgs);
         return deleted;

@@ -28,7 +28,7 @@
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:backgroundTint="@color/white"
@@ -40,29 +40,9 @@
         android:textColorHint="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idTitle" />
-
-    <EditText
-        android:id="@+id/idEmail"
-        android:layout_width="341dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:backgroundTint="@color/white"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textPersonName"
-        android:paddingBottom="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idUser" />
 
     <EditText
         android:id="@+id/idPass"
@@ -70,7 +50,7 @@
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:backgroundTint="@android:color/white"
@@ -83,7 +63,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/idUser" />
 
     <Button
         android:id="@+id/bCreate"

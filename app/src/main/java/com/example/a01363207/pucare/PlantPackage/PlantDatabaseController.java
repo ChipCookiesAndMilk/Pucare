@@ -33,7 +33,6 @@ public class PlantDatabaseController {
         return inserted;
     }
 
-
     // Gets all the kind of plants
     public Cursor selectPlantsName() {
         SQLiteDatabase databaseRead = helper.getReadableDatabase();

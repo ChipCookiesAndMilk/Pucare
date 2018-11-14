@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         // Ask DB look for user
         String[] selectionArgs = new String[]{u, p};
         // for requirement: Initialize DatabaseHelper, in this case calls the DBcontroller to do it
-        String selection = UserDP.COLUMN_EMAIL + " =? AND " + UserDP.COLUMN_PASSWORD + " = ?";
+        String selection = UserDP.COLUMN_USERNAME + " =? AND " + UserDP.COLUMN_PASSWORD + " = ?";
 
         Cursor cursor = controller.selectUser(selection, selectionArgs);
 
@@ -55,10 +55,9 @@ public class MainActivity extends AppCompatActivity {
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 String name = cursor.getString(cursor.getColumnIndex(UserDP.COLUMN_USERNAME));
-                String email = cursor.getString(cursor.getColumnIndex(UserDP.COLUMN_EMAIL));
                 String pass = cursor.getString(cursor.getColumnIndex(UserDP.COLUMN_PASSWORD));
 
-                Log.d("DATABASE_INFO", "USER_INFO____ID: " + email + " User: " + name + " Email: " + email + " Pass: " + pass);
+                Log.d("DATABASE_INFO", "USER_INFO____userName " + name + " Pass: " + pass);
             }
             result = 1;
         }
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     /* activity_main: logIn = onClick */
     public void logIn(View view) {
         String message = "";
-        EditText user = (EditText) findViewById(R.id.email);
+        EditText user = (EditText) findViewById(R.id.idUser);
         EditText pass = (EditText) findViewById(R.id.idPass);
 
         String u = user.getText().toString();

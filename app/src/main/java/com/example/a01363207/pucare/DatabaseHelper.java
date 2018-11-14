@@ -26,8 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // CREATE TABLES
     // User
     private static final String SQL_CREATE_USER = "CREATE TABLE " + TABLE_USER + "(" +
-            UserDP.COLUMN_EMAIL     +  " TEXT PRIMARY KEY," +
-            UserDP.COLUMN_USERNAME  +  " TEXT," +
+            UserDP.COLUMN_USERNAME     +  " TEXT PRIMARY KEY," +
             UserDP.COLUMN_PASSWORD  +  " TEXT)";
 
     // Plant
@@ -52,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             UserPlantDP.COLUMN_DATE_REGISTERED  +  " TEXT, " +
 
 
-            "FOREIGN KEY ("+UserPlantDP.COLUMN_USER_EMAIL+") REFERENCES "+UserDP.TABLE_NAME+"("+UserDP.COLUMN_EMAIL+")," +
+            "FOREIGN KEY ("+UserPlantDP.COLUMN_USER_EMAIL+") REFERENCES "+UserDP.TABLE_NAME+"("+UserDP.COLUMN_USERNAME+")," +
             "FOREIGN KEY ("+UserPlantDP.COLUMN_PLANT_NAME+") REFERENCES "+PlantDP.TABLE_NAME+"("+PlantDP.COLUMN_PLANT_NAME+"),"+
             "PRIMARY KEY ("+UserPlantDP.COLUMN_USER_EMAIL+","+UserPlantDP.COLUMN_DATE_REGISTERED+"))";
 
