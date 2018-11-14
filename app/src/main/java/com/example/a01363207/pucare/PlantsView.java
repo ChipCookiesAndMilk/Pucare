@@ -59,7 +59,6 @@ public class PlantsView extends AppCompatActivity {
 
     private ArrayList<String> plantsInDB;
     private String email = "";
-    private String spValue = "";
 
     PlantDatabaseController plantController;
     UserPlantDatabaseController userPlantController;

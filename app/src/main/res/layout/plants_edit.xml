@@ -10,8 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -19,7 +18,7 @@
             android:id="@+id/idThumbnail"
             android:layout_width="225dp"
             android:layout_height="225dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="8dp"
             android:background="#2d2d2d"
             android:contentDescription="@string/plant_name"
             android:scaleType="centerCrop" />
@@ -27,7 +26,7 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="145dp">
+            android:layout_height="wrap_content">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -67,8 +66,7 @@
                     android:layout_width="125dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="16dp"
-                    android:textSize="20sp">
-                </Spinner>
+                    android:textSize="20sp"></Spinner>
 
             </TableRow>
 
@@ -78,17 +76,16 @@
             android:id="@+id/bSave"
             android:layout_width="386dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32sp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="16sp"
-            android:text="@string/save"
-            android:onClick="save"/>
+            android:onClick="save"
+            android:text="@string/save" />
 
         <Button
             android:id="@+id/bDelete"
             android:layout_width="385dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16sp"
-            android:text="@string/delete"
-            android:onClick="delete"/>
+            android:onClick="delete"
+            android:text="@string/delete" />
     </LinearLayout>
 </LinearLayout>
