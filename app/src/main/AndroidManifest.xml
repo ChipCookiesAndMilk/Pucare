@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.a01363207.pucare">
+
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
 
     <application
         android:allowBackup="true"
@@ -23,5 +25,6 @@
         <activity android:name=".PlantsView"/>
         <activity android:name=".UserPlantPackage.PlantsEdit"/>
         <activity android:name=".UserPlantPackage.PlantsAdd"/>
+        <activity android:name=".UserPlantPackage.SensorsEnvironment"/>
     </application>
 </manifest>

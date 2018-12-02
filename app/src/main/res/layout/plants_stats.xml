@@ -7,110 +7,111 @@
     android:layout_height="match_parent"
     tools:context=".UserPlantPackage.PlantsEdit">
 
+    <TextView
+        android:layout_width="303dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/status"
+        android:textSize="28sp" />
+
     <ImageView
         android:id="@+id/idPlantThumbnail"
-        android:layout_width="225dp"
-        android:layout_height="225dp"
+        android:layout_width="289dp"
+        android:layout_height="295dp"
         android:background="#2d2d2d"
         android:contentDescription="@string/plant_name"
         android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/idName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/plant_name"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/idName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/plant_name"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
-        <TableLayout
+    <TextView
+        android:id="@+id/tfType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        android:text="@string/type"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32sp"
+                android:layout_marginLeft="32sp"
+                android:layout_marginTop="16dp"
+                android:text="@string/health"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32sp"
-                    android:layout_marginLeft="32sp"
-                    android:layout_marginTop="16dp"
-                    android:textSize="20sp"
-                    android:text="@string/type" />
+            <TextView
+                android:id="@+id/idHealth"
+                android:layout_width="169dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32sp"
+                android:layout_marginLeft="32sp"
+                android:layout_marginTop="16dp"
+                android:text="@string/health"
+                android:textSize="20sp" />
+        </TableRow>
 
-                <TextView
-                    android:id="@+id/tfType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32sp"
-                    android:layout_marginLeft="32sp"
-                    android:layout_marginTop="16dp"
-                    android:textSize="20sp"
-                    android:text="@string/type" />
-            </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32sp"
+                android:layout_marginLeft="32sp"
+                android:layout_marginTop="16dp"
+                android:text="@string/next_water"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32sp"
-                    android:layout_marginLeft="32sp"
-                    android:layout_marginTop="16dp"
-                    android:textSize="20sp"
-                    android:text="Health" />
+            <TextView
+                android:id="@+id/idNextWater"
+                android:layout_width="169dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32sp"
+                android:layout_marginLeft="32sp"
+                android:layout_marginTop="16dp"
+                android:text="@string/next_water_format"
+                android:textSize="20sp" />
+        </TableRow>
+    </TableLayout>
 
-                <TextView
-                    android:id="@+id/idHealth"
-                    android:layout_width="169dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32sp"
-                    android:layout_marginLeft="32sp"
-                    android:textSize="20sp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/health_format" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32sp"
-                    android:layout_marginLeft="32sp"
-                    android:layout_marginTop="16dp"
-                    android:textSize="20sp"
-                    android:text="@string/next_water" />
-
-                <TextView
-                    android:id="@+id/idNextWater"
-                    android:layout_width="169dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32sp"
-                    android:layout_marginLeft="32sp"
-                    android:layout_marginTop="16dp"
-                    android:textSize="20sp"
-                    android:text="@string/next_water_format" />
-            </TableRow>
-        </TableLayout>
+    <Button
+        android:id="@+id/bEnvironment"
+        android:layout_width="386dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:onClick="checkEnvironment"
+        android:text="@string/environment"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/bEdit"
         android:layout_width="386dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
         android:onClick="edit"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/edit"
-        android:textSize="20sp" />
+        android:textSize="20sp"/>
 </LinearLayout>

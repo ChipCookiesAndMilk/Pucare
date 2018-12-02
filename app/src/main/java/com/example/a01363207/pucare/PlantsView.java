@@ -2,21 +2,13 @@ package com.example.a01363207.pucare;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.AutoCompleteTextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,7 +19,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.a01363207.pucare.PlantPackage.PlantDP;
 import com.example.a01363207.pucare.PlantPackage.PlantDatabaseController;
-import com.example.a01363207.pucare.UserPlantPackage.OperationsHandler;
 import com.example.a01363207.pucare.UserPlantPackage.PlantsAdd;
 import com.example.a01363207.pucare.UserPlantPackage.RecyclerViewAdapter;
 import com.example.a01363207.pucare.UserPlantPackage.UserPlantDP;
@@ -37,7 +28,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,13 +41,17 @@ displays the user content
 */
 
 public class PlantsView extends AppCompatActivity {
-    private static final String URL_PLANTS = "http://192.168.100.7:3000/plants";
+    private static final String URL_PLANTS = "http://10.25.249.27:3000/plants";
     private static final String VOLLEY_ERROR = "VOLLEY_ERROR";
     private static final String TAG = "PlantsView";
 
     public static String EXTRA_INPUT_USER = "INPUT_USER";
 
+    // search bar
+    private AutoCompleteTextView searchText;
+    // catalogue plants
     private ArrayList<String> plantsInDB;
+    // user
     private String email = "";
 
     PlantDatabaseController plantController;
@@ -69,9 +63,9 @@ public class PlantsView extends AppCompatActivity {
 
         /* Get userName */
         email = (getIntent().getStringExtra(MainActivity.EXTRA_INPUT_USER)).toString();
-        Log.d(TAG, "\n\n<----> Received:" + email);
+        //Log.d(TAG, "\n\n<----> Received:" + email);
 
-        plantController = new PlantDatabaseController(this.getBaseContext());
+        plantController     = new PlantDatabaseController(this.getBaseContext());
         userPlantController = new UserPlantDatabaseController(this.getBaseContext());
 
         /* set layout */
@@ -101,7 +95,7 @@ public class PlantsView extends AppCompatActivity {
     /* API */
     private void jsonIntoDatabase(JSONObject plantObj) {
         try {
-            Log.d("jsonIntoDatabase", "IN jsonIntoDatabase, inside try");
+            //Log.d("jsonIntoDatabase", "IN jsonIntoDatabase, inside try");
             String plantName = plantObj.getString("name");
             String plantType    = plantObj.getString("type");
             String sunlight     = plantObj.getString("sunlight");
@@ -118,7 +112,7 @@ public class PlantsView extends AppCompatActivity {
             plantDP.setWater(water);
             plantDP.setImage(image);
 
-            Log.d("jsonIntoDatabase", "before plantController call");
+            //Log.d("jsonIntoDatabase", "before plantController call");
 
             // validate if this plant exists
             long insert = plantController.insert(plantDP);
@@ -150,28 +144,28 @@ public class PlantsView extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
         // requestTypeMethod, URL_PLANTS, responseListener(file), errorListener
-        Log.d("arrayRequest", "\tloadApiData: Request");
+        //Log.d("arrayRequest", "\tloadApiData: Request");
         JsonArrayRequest arrayRequest = new JsonArrayRequest(Request.Method.GET,
                 URL_PLANTS, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
-                String jStr= "{\"id\":\"null\"}";
-
-                JSONObject plantObj = null;
                 try {
+                    String jStr= "{\"id\":\"null\"}";
+
+                    JSONObject plantObj = null;
+
                     plantObj = new JSONObject(jStr);
+
+                    for(int i = 0; i < response.length(); i++) {
+                        plantObj = response.getJSONObject(i);
+                        jsonIntoDatabase(plantObj);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for(int i = 0; i < response.length(); i++){
-                    try {
-                        plantObj = response.getJSONObject(i);
-                        jsonIntoDatabase(plantObj);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+
                 Log.d("RESPONSE","loadApiData: Response: "+response.toString());
             }
         }, new Response.ErrorListener() {
@@ -197,7 +191,7 @@ public class PlantsView extends AppCompatActivity {
         //Log.d(TAG,"getUserPlants. selection: "+selection);
 
         Cursor cursor = userPlantController.selectContent(selection,selectionArgs);
-        int curSize = 0;
+        // int curSize = 0;
 
         while (cursor.moveToNext()) {
             String name     = cursor.getString(cursor.getColumnIndex(UserPlantDP.COLUMN_NICKNAME));
@@ -220,13 +214,12 @@ public class PlantsView extends AppCompatActivity {
             input.setDateRegistered(date);
 
             list.add(input);
-            curSize++;
+            // curSize++;
 
             /*Log.d(TAG, "\n## >>>>>> addUserPlant. curSize: "+curSize+"List size: "+list.size()+" __Card info. name: " + name + " health: " + health+ " last: "+last+" water: "
                     +water+" image: "+image+ " user: "+user+" plant: "+plant+" date: "+date);
 
             */
-
         }
         cursor.close();
         //Log.d(TAG,"getUserPlants. User email_Origin: "+email);
@@ -254,31 +247,5 @@ public class PlantsView extends AppCompatActivity {
         Intent intent = new Intent(this, PlantsAdd.class);
         intent.putExtra(EXTRA_INPUT_USER, email);
         startActivity(intent);
-    }
-
-    // Subclass, reloads the image when the user changes the spinner option
-    private class GetImageFromURL extends AsyncTask<String, Void, Bitmap> {
-        ImageView icon;
-
-        public GetImageFromURL(ImageView image) {
-            this.icon = image;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap bmp = null;
-            try {
-                InputStream is = new java.net.URL(urldisplay).openStream();
-                bmp = BitmapFactory.decodeStream(is);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return bmp;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            icon.setImageBitmap(result);
-        }
     }
 }

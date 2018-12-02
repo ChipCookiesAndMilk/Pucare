@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.a01363207.pucare.GetImageFromURL;
 import com.example.a01363207.pucare.PlantPackage.PlantDP;
 import com.example.a01363207.pucare.PlantPackage.PlantDatabaseController;
 import com.example.a01363207.pucare.PlantsView;
@@ -30,7 +31,6 @@ import java.util.StringTokenizer;
 PlantsEdit Class  -> Handles the edit screen
 	~ plants_edit.xml
 		Show editable fields to load into the plants user DB
-
 	~ plants_stats.xml
 		Show the stats of a user plant
 */
@@ -43,9 +43,7 @@ public class PlantsEdit extends AppCompatActivity implements AdapterView.OnItemS
     PlantDatabaseController plantController;
 
     // global variables
-    String user, date;
-    String inP = "";
-    String msg = "";
+    String user, date, inP = "", msg = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +51,7 @@ public class PlantsEdit extends AppCompatActivity implements AdapterView.OnItemS
 
         // get params
         String pk = (getIntent().getStringExtra(RecyclerViewAdapter.EXTRA_PLANT_PK)).toString();
-            //Log.d(TAG, "-> Received: " + pk + " <<END");
+        //Log.d(TAG, "-> Received: " + pk + " <<END");
 
         // load layout
         setContentView(R.layout.plants_stats);
@@ -75,7 +73,7 @@ public class PlantsEdit extends AppCompatActivity implements AdapterView.OnItemS
         controller.close();
     }
 
-/** prepares screen info */
+    /** prepares screen info */
     // loads the plants info to be edited
     private void loadCurrentPlantData() {
         UserPlantDP input = new UserPlantDP();
@@ -151,21 +149,21 @@ public class PlantsEdit extends AppCompatActivity implements AdapterView.OnItemS
         // add all the possible values to the spinner
         ArrayList<String> list;
         list = getPlantsOptions();
-            // Log.d(TAG, "- - - - getPlantsOptions. list: "+list.toString());
+        // Log.d(TAG, "- - - - getPlantsOptions. list: "+list.toString());
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_inner_layout, R.id.sData, list);
         spinner.setAdapter(adapter);
-            //Log.d(TAG, "getPlantsOptions. Plants name were set");
+        //Log.d(TAG, "getPlantsOptions. Plants name were set");
 
         // set the current type of the plant
         ArrayAdapter adapterOption = (ArrayAdapter) spinner.getAdapter();
         int spinnerCurrentPosition = adapterOption.getPosition(input.getPlantName());
         spinner.setSelection(spinnerCurrentPosition);
-            //Log.d(TAG, "getPlantsOptions. The type the plant already has was set");
-            //Log.d(TAG, "getPlantsOptions. -------- Listener ------ ");
+        //Log.d(TAG, "getPlantsOptions. The type the plant already has was set");
+        //Log.d(TAG, "getPlantsOptions. -------- Listener ------ ");
         spinner.setOnItemSelectedListener(this);
-            //msg = "Was everything ok? ";
-            //Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
-            //Log.d(TAG,msg);
+        //msg = "Was everything ok? ";
+        //Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+        //Log.d(TAG,msg);
     }
 
     // gets the link of selected plant from database
@@ -246,7 +244,7 @@ public class PlantsEdit extends AppCompatActivity implements AdapterView.OnItemS
         return input;
     }
 
-/** ONCLICK **/
+    /** ONCLICK **/
     // responds to button.onClick. on edit Edits the info of a plant from given user
     public void edit(View view) {
 
@@ -319,7 +317,7 @@ public class PlantsEdit extends AppCompatActivity implements AdapterView.OnItemS
 
         if (sNick.isEmpty()) {
             String message = "Mmmm... Your plant " + nick + " must have a name";
-                //Log.d(TAG, message);
+            //Log.d(TAG, message);
         } else {
 
             UserPlantDP input;
@@ -333,9 +331,9 @@ public class PlantsEdit extends AppCompatActivity implements AdapterView.OnItemS
                 input.setPlantName(sType);
                 // get last date in order to get the new one
                 String prevLast = input.getLastWater();
-                    //String prevNext = input.getNextWater();
+                //String prevNext = input.getNextWater();
                 String nextWater = getTimeToWater(sType);
-                    // calculate and set this new date
+                // calculate and set this new date
                 OperationsHandler oh = new OperationsHandler();
                 input.setNextWater(oh.nextWater(prevLast,nextWater));
                 // change image
@@ -344,12 +342,12 @@ public class PlantsEdit extends AppCompatActivity implements AdapterView.OnItemS
 
             //format for update(String table, ContentValues values, String whereClause, String[] whereArgs)
             long inserted = controller.update(input);
-                Log.d(TAG, "bSave.onClick. Data was sent. " + inserted);
+            Log.d(TAG, "bSave.onClick. Data was sent. " + inserted);
         }
 
         msg = "Your plant was updated";
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-            //Log.d(TAG, msg);
+        //Log.d(TAG, msg);
 
         Intent intent = new Intent(this, PlantsView.class);
         intent.putExtra(EXTRA_INPUT_USER, user);
@@ -369,7 +367,7 @@ public class PlantsEdit extends AppCompatActivity implements AdapterView.OnItemS
         Log.d(TAG, msg);
     }
 
-/** spinner handler **/
+    /** spinner handler **/
     // manages the spinner options
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -396,30 +394,9 @@ public class PlantsEdit extends AppCompatActivity implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
-
-    // Subclass, reloads the image when the user changes the spinner option
-    private class GetImageFromURL extends AsyncTask<String, Void, Bitmap> {
-        ImageView icon;
-
-        public GetImageFromURL(ImageView image) {
-            this.icon = image;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap bmp = null;
-            try {
-                InputStream is = new java.net.URL(urldisplay).openStream();
-                bmp = BitmapFactory.decodeStream(is);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return bmp;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            icon.setImageBitmap(result);
-        }
+/** click environment handler */
+    public void checkEnvironment(View view) {
+        Intent intent = new Intent(this, SensorsEnvironment.class);
+        startActivity(intent);
     }
 }

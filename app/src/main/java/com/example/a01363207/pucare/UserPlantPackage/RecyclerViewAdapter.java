@@ -2,9 +2,6 @@ package com.example.a01363207.pucare.UserPlantPackage;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.a01363207.pucare.GetImageFromURL;
 import com.example.a01363207.pucare.R;
 
-import java.io.InputStream;
 import java.util.List;
 
 /** This class handles the users catalogue **/
@@ -55,13 +52,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return new MyViewHolder(view);
     }
 
-    /* Sets the values to elements in layout, also the onClick listener is here
+    /* gives a better format to the next water date */
+    private String getTimeRemaining(String date){
+        OperationsHandler oh = new OperationsHandler();
+        return oh.formatDate(date);
+    }
+
+    /* Sets the values to elements in layout, also the onClick listener is here,
         loads the next layout and sends the primary key of this selected item
     */
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
         new GetImageFromURL(myViewHolder.ivImage).execute(plantsList.get(i).getImage());
         myViewHolder.tvName.setText(plantsList.get(i).getNickname());
+        // loads only time remaining to water the plant
+        //myViewHolder.tvWater.setText(getTimeRemaining(plantsList.get(i).getNextWater()));
         myViewHolder.tvWater.setText(plantsList.get(i).getNextWater());
             //Log.d(TAG, "*** nick: " + plantsList.get(i).getNickname());
             //Log.d(TAG, "*** water: " + plantsList.get(i).getNextWater());
@@ -99,31 +104,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tvName = (TextView) view.findViewById(R.id.idPlantName);
             tvWater = (TextView) view.findViewById(R.id.idNextWater);
             cardView = (CardView) view.findViewById(R.id.idCardView);
-        }
-    }
-    // Subclass, reloads the image when the user changes the spinner option
-    private class GetImageFromURL extends AsyncTask<String, Void, Bitmap> {
-        ImageView icon;
-
-        public GetImageFromURL(ImageView image) {
-            this.icon = image;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap bmp = null;
-            try {
-                InputStream is = new java.net.URL(urldisplay).openStream();
-                bmp = BitmapFactory.decodeStream(is);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return bmp;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            icon.setImageBitmap(result);
         }
     }
 }

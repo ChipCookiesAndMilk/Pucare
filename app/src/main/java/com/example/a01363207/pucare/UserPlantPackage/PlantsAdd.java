@@ -16,23 +16,22 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.a01363207.pucare.GetImageFromURL;
 import com.example.a01363207.pucare.MainActivity;
 import com.example.a01363207.pucare.PlantPackage.PlantDP;
 import com.example.a01363207.pucare.PlantPackage.PlantDatabaseController;
 import com.example.a01363207.pucare.PlantsView;
 import com.example.a01363207.pucare.R;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 /*
 PlantsAdd Class  -> Adds a new plant to an user
 	~ plants_add.xml
 		Show editable fields to create a new plants user in DB
 */
-
 public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static String EXTRA_INPUT_USER = "INPUT_USER";
-    private static final String TAG = "PlantsView";
+    private static final String TAG = "PlantsAdd";
 
     UserPlantDatabaseController userPlantController;
     PlantDatabaseController plantController;
@@ -46,7 +45,7 @@ public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSe
 
         /* Get userName */
         userName = (getIntent().getStringExtra(MainActivity.EXTRA_INPUT_USER)).toString();
-        Log.d(TAG, "\n\n<----> Received:" + userName);
+        //Log.d(TAG, "\n\n<----> Received:" + userName);
 
         plantController = new PlantDatabaseController(this.getBaseContext());
         userPlantController = new UserPlantDatabaseController(this.getBaseContext());
@@ -77,7 +76,7 @@ public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSe
     // gets the plants name from DB
     private ArrayList<String> getPlantsOptions() {
         ArrayList<String> list = new ArrayList<String>();
-        Log.d(TAG, "getPlantsOptions. after array creation");
+        //Log.d(TAG, "getPlantsOptions. after array creation");
 
         Cursor cursor = plantController.selectPlantsName();
         try {
@@ -105,7 +104,7 @@ public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSe
         String plantName = n.getText().toString();
         String plantType = s.getSelectedItem().toString();
 
-        Log.d(TAG,"addUserPlant. plantName: "+plantName+"    ___plantType: "+plantType);
+        //Log.d(TAG,"addUserPlant. plantName: "+plantName+"    ___plantType: "+plantType);
 
         if(plantName.isEmpty()){
             Toast.makeText(this,"Your plant must have a name",Toast.LENGTH_SHORT).show();
@@ -113,7 +112,7 @@ public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSe
             // add plant to the user
             OperationsHandler oh = new OperationsHandler();
             String lW = oh.getDate();
-            Log.d(TAG,"getDate: "+lW);
+           // Log.d(TAG,"getDate: "+lW);
             String wW = getWater(plantType);
             String nW = oh.nextWater(lW, wW);
             String img = getPlantsImage(plantType);
@@ -129,7 +128,7 @@ public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSe
         }
         // load catalogue
 
-        Log.d(TAG, "<---- addUserPlant. inserted ");
+        //Log.d(TAG, "<---- addUserPlant. inserted ");
         //setContentView(R.layout.plants_view);
         //setContentView(R.layout.plants_view);
         //getUserPlants();
@@ -138,8 +137,7 @@ public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSe
         intent.putExtra(EXTRA_INPUT_USER, userName);
 
         startActivity(intent);
-        Log.d(TAG, "Plant added. Display Catalogue");
-
+        //Log.d(TAG, "Plant added. Display Catalogue");
     }
 
     // request when to water a plant to the DB
@@ -153,7 +151,7 @@ public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSe
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
                     water = cursor.getString(cursor.getColumnIndex(PlantDP.COLUMN_WATER));
-                    Log.d(TAG, "getWater; water: " + water);
+                    //Log.d(TAG, "getWater; water: " + water);
                 }
             }
         } catch (Exception e) {
@@ -210,30 +208,5 @@ public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSe
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback, or do nothing.
         // maybe that what the user wants
-    }
-    // Subclass, reloads the image when the user changes the spinner option
-    private class GetImageFromURL extends AsyncTask<String, Void, Bitmap> {
-        ImageView icon;
-
-        public GetImageFromURL(ImageView image) {
-            this.icon = image;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap bmp = null;
-            try {
-                InputStream is = new java.net.URL(urldisplay).openStream();
-                bmp = BitmapFactory.decodeStream(is);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return bmp;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            icon.setImageBitmap(result);
-        }
     }
 }

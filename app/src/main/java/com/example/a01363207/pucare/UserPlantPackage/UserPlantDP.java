@@ -65,9 +65,7 @@ public class UserPlantDP implements BaseColumns {
     public String getImage() { return image; }
 
 /* SETTERS */
-    public void setUserEmail(String idUser) {
-        this.userEmail = idUser;
-    }
+    public void setUserEmail(String idUser) { this.userEmail = idUser; }
 
     public void setPlantName(String idPlant) {
         this.plantName = idPlant;

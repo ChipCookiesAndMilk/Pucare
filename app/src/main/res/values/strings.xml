@@ -11,17 +11,16 @@
     <string name="plant_name">Plant Name</string>
     <string name="sign_up">sign up</string>
 
-    <string name="status">Description</string>
+    <string name="status">How is my plant doing?</string>
     <string name="type">Type</string>
     <string name="registered_date">Date Registered</string>
     <string name="date_format">DD-MM-YYYY</string>
     <string name="last_water">Last time watered</string>
     <string name="next_water">When to Water</string>
+    <string name="health">Health</string>
     <string name="last_water_format">HH-MM-SS</string>
     <string name="next_water_format">HH-MM-SS</string>
-    <string name="health">Healthy</string>
-    <string name="health_format">Healthy</string>
-    <string name="edit">Edit</string>
+    <string name="edit">Edit Plant</string>
 
     <string name="add_plant_title">Add your plant!</string>
     <string name="open_calendar">Open Calendar</string>
@@ -32,4 +31,13 @@
     <string name="hour">Hour</string>
     <string name="save">Save</string>
     <string name="delete">Delete Plant</string>
+
+    <string name="store">Search Nearby Stores</string>
+    <string name="light">Light</string>
+    <string name="temperature">Temperature</string>
+    <string name="humidity">Humidity</string>
+
+
+    <string name="current">Current</string>
+    <string name="environment">Plants Current Environment</string>
 </resources>

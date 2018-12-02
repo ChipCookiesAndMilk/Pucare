@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a01363207.pucare.UserPackage.SignUp;
@@ -38,10 +37,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, SignUp.class);
         startActivity(intent);
     }
-    // validation existence of user
+
+    // validation of existence of user
     public int valEmail(String u, String p) {
         int result = -2;
-        Log.d("VALID_USER_METHOD", "Llegue___ USER: " + u + " PASS: " + p);
+        //Log.d("VALID_USER_METHOD", "Llegue___ USER: " + u + " PASS: " + p);
 
         // Ask DB look for user
         String[] selectionArgs = new String[]{u, p};
@@ -56,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
             while (cursor.moveToNext()) {
                 String name = cursor.getString(cursor.getColumnIndex(UserDP.COLUMN_USERNAME));
                 String pass = cursor.getString(cursor.getColumnIndex(UserDP.COLUMN_PASSWORD));
-
-                Log.d("DATABASE_INFO", "USER_INFO____userName " + name + " Pass: " + pass);
+                //Log.d("DATABASE_INFO", "USER_INFO____userName " + name + " Pass: " + pass);
             }
             result = 1;
         }
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         String u = user.getText().toString();
         String p = pass.getText().toString();
 
-        Log.d("MainActivity", "User: " + u + " Pass: " + p);
+        //Log.d("MainActivity", "User: " + u + " Pass: " + p);
 
         // user exists?
         int result = valEmail(u, p);
@@ -86,15 +85,15 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(EXTRA_INPUT_USER, u);
 
             startActivity(intent);
-            Log.d("MainActivity", "\nFOUND: USUARIO Y CONTRASENA CORRECTOS");
+            // Log.d("MainActivity", "\nFOUND: USUARIO Y CONTRASENA CORRECTOS");
             message = "WELCOME BACK";
 
         } else {
             // throw error, data do not match or user does not exists
-            Log.d("RECEPTION", "\nEXCEPTION: DATA DO NOT MATCH");
+            // Log.d("RECEPTION", "\nEXCEPTION: DATA DO NOT MATCH");
             message = "TRY AGAIN";
         }
         //textView.setText(message);
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
