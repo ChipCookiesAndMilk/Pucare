@@ -73,7 +73,7 @@ public class SensorsEnvironment  extends AppCompatActivity implements SensorEven
             Log.d("SENSORS_CLASS", "Cambio la luz: " + event.values[0] + "");
             l = 1;
         }
-        Log.d("SENSORS_CLASS", "onSensorChanged: Temp: " + t + " Humidity: " + humidity + " Light: " + l);
+        //Log.d("SENSORS_CLASS", "onSensorChanged: Temp: " + t + " Humidity: " + humidity + " Light: " + l);
 
         if(t != -1 && h != -1 && l != -1){
             sensorManager.unregisterListener(this);
@@ -111,8 +111,8 @@ public class SensorsEnvironment  extends AppCompatActivity implements SensorEven
             Toast.makeText(this, "Your device has no light sensor", Toast.LENGTH_SHORT).show();
             finish();
         }
-        Toast.makeText(this,"Sensors were initialized",Toast.LENGTH_SHORT).show();
-        Log.d("MAIN_ACTIVITY", "Sensors were initialized");
+        //Toast.makeText(this,"Sensors were initialized",Toast.LENGTH_SHORT).show();
+        //Log.d("SensorsEnvironment", "Sensors were initialized");
     }
 
     private void loadInterface(){

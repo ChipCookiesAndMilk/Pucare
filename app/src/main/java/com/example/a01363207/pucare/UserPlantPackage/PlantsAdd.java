@@ -1,11 +1,11 @@
 package com.example.a01363207.pucare.UserPlantPackage;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +30,8 @@ PlantsAdd Class  -> Adds a new plant to an user
 		Show editable fields to create a new plants user in DB
 */
 public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    public static String CHANNEL_ID = "Notification Chanel A";
+
     public static String EXTRA_INPUT_USER = "INPUT_USER";
     private static final String TAG = "PlantsAdd";
 
@@ -64,6 +66,7 @@ public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSe
         spinner.setAdapter(adapter);
         // Log.d(TAG, "getPlantsOptions. Plants name were set");
         spinner.setOnItemSelectedListener(this);
+
     }
 
     @Override
@@ -132,6 +135,8 @@ public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSe
         //setContentView(R.layout.plants_view);
         //setContentView(R.layout.plants_view);
         //getUserPlants();
+
+        doNotification("New Plant Added", plantName, "plantName: "+": "+plantName);
 
         Intent intent = new Intent(this, PlantsView.class);
         intent.putExtra(EXTRA_INPUT_USER, userName);
@@ -208,5 +213,26 @@ public class PlantsAdd extends AppCompatActivity implements AdapterView.OnItemSe
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback, or do nothing.
         // maybe that what the user wants
+    }
+
+    /** Notification **/
+    void doNotification(String title, String text, String bigText){
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(bigText))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(1000, mBuilder.build());
     }
 }

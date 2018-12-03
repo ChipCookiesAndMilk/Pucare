@@ -1,8 +1,14 @@
 package com.example.a01363207.pucare;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,6 +48,9 @@ displays the user content
 
 public class PlantsView extends AppCompatActivity {
     private static final String URL_PLANTS = "http://10.25.249.27:3000/plants";
+
+    public static String CHANNEL_ID = "Notification Chanel A";
+
     private static final String VOLLEY_ERROR = "VOLLEY_ERROR";
     private static final String TAG = "PlantsView";
 
@@ -76,6 +85,9 @@ public class PlantsView extends AppCompatActivity {
 
         /* Load user's plants data from DB */
         getUserPlants();
+
+        // Create notifications channel
+        createNotificationChannel();
     }
 
     @Override
@@ -247,5 +259,42 @@ public class PlantsView extends AppCompatActivity {
         Intent intent = new Intent(this, PlantsAdd.class);
         intent.putExtra(EXTRA_INPUT_USER, email);
         startActivity(intent);
+    }
+
+    /** Notifications **/
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = CHANNEL_ID;
+            String description = "My Channel";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    void doNotification(String title, String text, String bigText) {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(bigText))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(1000, mBuilder.build());
     }
 }

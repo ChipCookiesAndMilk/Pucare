@@ -2,9 +2,6 @@ package com.example.a01363207.pucare.UserPlantPackage;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -365,6 +362,9 @@ public class PlantsEdit extends AppCompatActivity implements AdapterView.OnItemS
             msg = "Something went wrong";
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         Log.d(TAG, msg);
+
+        Intent intent = new Intent(this,PlantsView.class);
+        startActivity(intent);
     }
 
     /** spinner handler **/
