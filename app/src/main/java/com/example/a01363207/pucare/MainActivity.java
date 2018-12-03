@@ -9,21 +9,47 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.andrognito.patternlockview.PatternLockView;
+import com.andrognito.patternlockview.listener.PatternLockViewListener;
+import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.example.a01363207.pucare.UserPackage.SignUp;
 import com.example.a01363207.pucare.UserPackage.UserDP;
 import com.example.a01363207.pucare.UserPackage.UserDatabaseController;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     // for the signUp & PlantsView
     public static String EXTRA_INPUT_USER = "INPUT_USER";
     // for the logIn
     UserDatabaseController controller;
+    // the the patter_lock_view
+    String patternStr = "";
+    PatternLockView mPatternLockView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         controller = new UserDatabaseController(this.getBaseContext());
+
+        // pattern
+        mPatternLockView = (PatternLockView) findViewById(R.id.pattern_lock_view);
+        mPatternLockView.addPatternLockListener(new PatternLockViewListener() {
+            @Override
+            public void onStarted() { }
+
+            @Override
+            public void onProgress(List<PatternLockView.Dot> progressPattern) { }
+
+            @Override
+            public void onComplete(List<PatternLockView.Dot> pattern) {
+                patternStr = PatternLockUtils.patternToString(mPatternLockView, pattern);
+            }
+
+            @Override
+            public void onCleared() { }
+        });
     }
 
     @Override
@@ -68,15 +94,16 @@ public class MainActivity extends AppCompatActivity {
     public void logIn(View view) {
         String message = "";
         EditText user = (EditText) findViewById(R.id.idUser);
-        EditText pass = (EditText) findViewById(R.id.idPass);
+        //EditText pass = (EditText) findViewById(R.id.idPass);
 
         String u = user.getText().toString();
-        String p = pass.getText().toString();
+        //String p = pass.getText().toString();
+        //String p = patternStr;
 
         //Log.d("MainActivity", "User: " + u + " Pass: " + p);
 
         // user exists?
-        int result = valEmail(u, p);
+        int result = valEmail(u, patternStr);
 
         // if user exist && data is correct?
         if (result == 1) {
